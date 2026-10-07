@@ -10,7 +10,18 @@ import { processStages, services, site } from '../data/site';
   <main>
     <section class="hero" id="top">
       <div class="hero__copy"><p class="eyebrow">Program evaluation, thoughtfully considered</p><h1>Meaningful<br />evaluation begins<br /><i>with understanding.</i></h1><div class="hero__bottom"><p>Before impact can be measured, it has to be understood.</p><a class="underlined-link" href="#approach">Discover our approach <span>↓</span></a></div></div>
-      <figure class="hero__image"><img src="/images/reference-hero.png" alt="A notebook and glasses on a quiet desk" /></figure>
+      <figure class="hero__image">
+        <img
+          src="/images/hero-sunlit-room-1200.webp"
+          srcset="/images/hero-sunlit-room-600.webp 600w, /images/hero-sunlit-room-1200.webp 1200w"
+          sizes="(max-width: 720px) calc(100vw - 40px), 44vw"
+          width="1200"
+          height="800"
+          alt="A warm beige armchair and candle beside wooden tables in afternoon sunlight"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </figure>
     </section>
     <section class="intro section" id="about"><p class="eyebrow">Sharpe Wise Insights</p><div><h2>Programs are complex.<br />Change is rarely linear.</h2><p class="lede">SWI helps organizations uncover the story beneath their work, connecting what they do, why they do it, what changes because of it, and the evidence that allows them to know.</p></div></section>
     <section class="architecture"><div class="architecture__copy"><p class="eyebrow">The narrative architecture</p><h2>What matters is often already there. It needs to be made visible.</h2><p>Programs are built on ideas and experiences designed to create change, and on assumptions about how that change happens.</p><p>SWI makes that architecture visible, then builds the evidence to understand what’s working, why it matters, and what comes next.</p></div><div class="architecture__words" aria-label="Sharpe Wise Insights values"><span>Intention</span><span>Precision</span><span>Interpretation</span><span>Evidence</span></div></section>
