@@ -1,0 +1,93 @@
+---
+import { evaluationJourneys } from '../data/site';
+---
+
+<section class="conversation" id="contact" aria-labelledby="conversation-title">
+  <div>
+    <p class="eyebrow">Start a conversation</p>
+    <h2 id="conversation-title">Tell us about<br />your program.</h2>
+    <p>You don't need to arrive with an evaluation question. Understanding what needs to be asked is part of our work.</p>
+  </div>
+  <form name="conversation" method="POST" action="/thank-you/" data-netlify="true" netlify-honeypot="bot-field" id="conversation-form">
+    <input type="hidden" name="form-name" value="conversation" />
+    <p hidden><label>Leave this empty<input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+    <div class="form-row">
+      <label for="inquiry-name">Your name<input id="inquiry-name" name="name" autocomplete="name" required maxlength="120" /></label>
+      <label for="inquiry-email">Email address<input id="inquiry-email" name="email" type="email" autocomplete="email" required maxlength="254" /></label>
+    </div>
+    <label for="inquiry-organization">Organization <span>(optional)</span><input id="inquiry-organization" name="organization" autocomplete="organization" maxlength="200" /></label>
+    <label for="inquiry-program">Tell us about your program<textarea id="inquiry-program" name="program" rows="3" required maxlength="5000"></textarea></label>
+    <label for="inquiry-curiosity">What are you curious about?<textarea id="inquiry-curiosity" name="curiosity" rows="3" required maxlength="5000"></textarea></label>
+    <label for="inquiry-impact">What do you wish you understood better about your impact? <span>(optional)</span><textarea id="inquiry-impact" name="impact" rows="3" maxlength="5000"></textarea></label>
+    <fieldset>
+      <legend>Where are you in your evaluation journey?</legend>
+      {evaluationJourneys.map((journey, index) => <label class="radio-option" for={`journey-${index}`}><input id={`journey-${index}`} name="journey" type="radio" value={journey} required />{journey}</label>)}
+    </fieldset>
+    <button class="button" type="submit">Send inquiry <span aria-hidden="true">↗</span></button>
+    <p class="form-status" role="status" aria-live="polite"></p>
+    <noscript><p>Submitting this form sends your inquiry on the hosted website. Local previews do not send inquiries.</p></noscript>
+  </form>
+</section>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#conversation-form');
+  form?.addEventListener('submit', (event) => {
+    if (['localhost', '127.0.0.1', '[::1]'].includes(window.location.hostname)) {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('.form-status');
+      if (status) status.textContent = 'Your form is ready, but this local preview cannot send inquiries. No information has been sent.';
+    }
+  });
+</script>
+
+<style>
+  .conversation { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+  .conversation h2 { margin-bottom: 2rem; }
+  form { display: grid; gap: 1.75rem; min-width: 0; padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, var(--cream) 45%, transparent); }
+  label, legend { font: .95rem/1.5 var(--sans); }
+  label > span { font-size: .8rem; opacity: .8; }
+  .form-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+  input:not([type='radio']):not([type='hidden']), textarea {
+    display: block;
+    width: 100%;
+    margin-top: .65rem;
+    padding: .95rem 1rem;
+    border: 1px solid var(--sage);
+    background: var(--cream);
+    color: var(--ink);
+    border-radius: 2px;
+    font: 1rem/1.6 var(--sans);
+    caret-color: var(--moss);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  input:not([type='radio']):hover, textarea:hover { border-color: var(--cream); }
+  input:not([type='radio']):focus, textarea:focus {
+    border-color: var(--moss);
+    outline: 2px solid var(--cream);
+    outline-offset: 3px;
+    box-shadow: inset 0 0 0 1px var(--moss);
+  }
+  textarea { resize: vertical; min-height: 7.5rem; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { margin-bottom: 1rem; }
+  .radio-option { display: flex; align-items: flex-start; gap: .85rem; padding: .7rem 0; border-bottom: 1px solid color-mix(in srgb, var(--cream) 25%, transparent); cursor: pointer; }
+  input[type='radio'] {
+    appearance: none;
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    margin: .18rem 0 0;
+    border: 1px solid var(--cream);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+  }
+  input[type='radio']:checked { background: var(--cream); box-shadow: inset 0 0 0 4px var(--moss); }
+  input[type='radio']:focus-visible, button:focus-visible { outline: 2px solid var(--cream); outline-offset: 4px; }
+  button { background: var(--cream); color: var(--moss); border-color: var(--cream); cursor: pointer; justify-self: start; padding: 1rem 1.75rem; font: .95rem var(--sans); transition: background 160ms ease; }
+  button:hover { background: var(--sage); }
+  .conversation .form-status { font: .9rem/1.5 var(--sans); margin: 0; }
+  @media (max-width: 720px) { .conversation, .form-row { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { input, textarea, button { transition: none !important; } }
+  @media (forced-colors: active) { input[type='radio'] { appearance: auto; } }
+</style>

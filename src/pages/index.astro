@@ -1,0 +1,22 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProcessStage from '../components/ProcessStage.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Conversation from '../components/Conversation.astro';
+import { processStages, services, site } from '../data/site';
+---
+
+<BaseLayout title={`${site.name}: Meaningful evaluation begins with understanding.`}>
+  <main>
+    <section class="hero" id="top">
+      <div class="hero__copy"><p class="eyebrow">Program evaluation, thoughtfully considered</p><h1>Meaningful<br />evaluation begins<br /><i>with understanding.</i></h1><div class="hero__bottom"><p>Before impact can be measured, it has to be understood.</p><a class="underlined-link" href="#approach">Discover our approach <span>↓</span></a></div></div>
+      <figure class="hero__image"><img src="/images/reference-hero.png" alt="A notebook and glasses on a quiet desk" /></figure>
+    </section>
+    <section class="intro section" id="about"><p class="eyebrow">Sharpe Wise Insights</p><div><h2>Programs are complex.<br />Change is rarely linear.</h2><p class="lede">SWI helps organizations uncover the story beneath their work, connecting what they do, why they do it, what changes because of it, and the evidence that allows them to know.</p></div></section>
+    <section class="architecture"><div class="architecture__copy"><p class="eyebrow">The narrative architecture</p><h2>What matters is often already there. It needs to be made visible.</h2><p>Programs are built on ideas and experiences designed to create change, and on assumptions about how that change happens.</p><p>SWI makes that architecture visible, then builds the evidence to understand what’s working, why it matters, and what comes next.</p></div><div class="architecture__words" aria-label="Sharpe Wise Insights values"><span>Intention</span><span>Precision</span><span>Interpretation</span><span>Evidence</span></div></section>
+    <section class="approach section" id="approach"><div class="section-heading"><p class="eyebrow">Our approach</p><h2>From curiosity<br />to clarity.</h2><p class="lede">The SWI approach moves deliberately from curiosity to clarity, and from clarity to evidence. Each stage builds upon the one before it.</p></div><p class="process-path">Explore <span>→</span> Explain <span>→</span> Examine <span>→</span> Evidence <span>→</span> Evolve</p><div class="process-list">{processStages.map((stage) => <ProcessStage {...stage} />)}</div></section>
+    <section class="belief"><p>We don’t begin by asking<br /><i>what can be measured.</i><br />We begin by asking what matters.</p></section>
+    <section class="services section" id="services"><div class="section-heading"><p class="eyebrow">What we do</p><h2>Evaluation that<br />illuminates.</h2><p class="lede">We don’t simply report what happened. We help organizations understand what it means.</p></div><div class="service-grid">{services.map((service) => <ServiceCard {...service} />)}</div></section>
+    <Conversation />
+  </main>
+</BaseLayout>

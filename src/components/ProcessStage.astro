@@ -1,0 +1,6 @@
+---
+interface Props { number: string; title: string; question: string; description: string; }
+const { number, title, question, description } = Astro.props;
+---
+
+<article class="process-stage"><span class="stage-number">{number}</span><h3>{title}</h3><div><p class="stage-question">{question}</p><p>{description}</p></div></article>

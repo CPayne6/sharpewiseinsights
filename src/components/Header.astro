@@ -1,0 +1,45 @@
+---
+import { site } from '../data/site';
+---
+
+<header class="site-header">
+  <a class="wordmark" href="/#top" aria-label={`${site.name} home`}>Sharpe Wise<br /><em>Insights</em></a>
+  <button class="menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded="false">Menu <span>+</span></button>
+  <nav id="primary-navigation" aria-label="Primary navigation">
+    {site.navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const nav = document.querySelector<HTMLElement>('#primary-navigation');
+  function closeMenu() {
+    toggle?.setAttribute('aria-expanded', 'false');
+    const icon = toggle?.querySelector('span');
+    if (icon) icon.textContent = '+';
+    nav?.classList.remove('is-open');
+  }
+  nav?.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+      closeMenu();
+      toggle.focus();
+    }
+  });
+  toggle?.addEventListener('click', () => {
+    const expanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!expanded));
+    toggle.querySelector('span')!.textContent = expanded ? '+' : '−';
+    nav?.classList.toggle('is-open', !expanded);
+  });
+</script>
+
+<noscript>
+  <style>
+    @media (max-width: 720px) {
+      .site-header { position: static; height: auto; flex-wrap: wrap; padding-block: 20px; gap: 20px; }
+      .site-header nav { display: flex; position: static; flex-wrap: wrap; flex-direction: row; padding: 0; border: 0; }
+      .menu-toggle { display: none; }
+    }
+  </style>
+</noscript>

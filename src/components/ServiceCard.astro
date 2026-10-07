@@ -1,0 +1,9 @@
+---
+interface Props { number: string; title: string; summary: string; image?: string; imageAlt?: string; items: readonly string[]; }
+const { number, title, summary, image, imageAlt = '', items } = Astro.props;
+---
+
+<article class="service-card">
+  {image && <img class="service-card__image" src={image} alt={imageAlt} loading="lazy" />}
+  <span>{number}</span><h3>{title}</h3><p>{summary}</p><ul>{items.map((item) => <li>{item}</li>)}</ul>
+</article>
